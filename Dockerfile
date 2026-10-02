@@ -31,7 +31,9 @@ ARG UID
 ARG GID
 
 # Set Node.js options (heap limit Allocation failed - JavaScript heap out of memory)
-# ENV NODE_OPTIONS="--max-old-space-size=4096"
+# Use the same heap limit the CI workflow injects: the default heap makes
+# "npm run build" abort (exit 134) at roughly 4 GB.
+ENV NODE_OPTIONS="--max-old-space-size=12288"
 
 WORKDIR /app
 
